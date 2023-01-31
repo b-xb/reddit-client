@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event'
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import App from './App';
 
@@ -18,6 +19,10 @@ test('a bad route will display the 404 page', () => {
 
   // verify navigation to "no match" route
   expect(screen.getByText(/Sorry, the page you are looking for has not been found/i)).toBeInTheDocument();
+
+  // clicking on the link takes you back to the home page
+  userEvent.click(screen.getByText(/Return to Home Page/i));
+  expect(screen.getByText(/Home/i)).toBeInTheDocument();
 })
 
 test('a different bad route will also display the 404 page', () => {
@@ -31,6 +36,10 @@ test('a different bad route will also display the 404 page', () => {
 
   // verify navigation to "no match" route
   expect(screen.getByText(/Sorry, the page you are looking for has not been found/i)).toBeInTheDocument();
+
+  // clicking on the link takes you back to the home page
+  userEvent.click(screen.getByText(/Return to Home Page/i));
+  expect(screen.getByText(/Home/i)).toBeInTheDocument();
 })
 
 test('The base URL should route to the Home Page ', () => {
