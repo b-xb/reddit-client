@@ -1,25 +1,23 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import App from './App';
 
-test('renders learn react link', () => {
+test('renders home page view', () => {
   render(<BrowserRouter><App /></BrowserRouter>);
-  const linkElement = screen.getByText(/Home/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/Home/i)).toBeInTheDocument();
 });
 
-
 test('a bad route will display the 404 page', () => {
-  const badRoute = '/some/bad/route'
+  const badRoute = '/some/bad/route';
 
   render(
     <MemoryRouter initialEntries={[badRoute]}>
       <App />
     </MemoryRouter>,
-  )
+  );
 
   // verify navigation to "no match" route
-  expect(screen.getByText(/Sorry, the page you are looking for has not been found/i)).toBeInTheDocument()
+  expect(screen.getByText(/Sorry, the page you are looking for has not been found/i)).toBeInTheDocument();
 })
 
 test('a different bad route will also display the 404 page', () => {
@@ -29,22 +27,21 @@ test('a different bad route will also display the 404 page', () => {
     <MemoryRouter initialEntries={[badRoute]}>
       <App />
     </MemoryRouter>,
-  )
+  );
 
   // verify navigation to "no match" route
-  expect(screen.getByText(/Sorry, the page you are looking for has not been found/i)).toBeInTheDocument()
+  expect(screen.getByText(/Sorry, the page you are looking for has not been found/i)).toBeInTheDocument();
 })
 
 test('The base URL should route to the Home Page ', () => {
-  const route = '/'
+  const route = '/';
 
-  // use <MemoryRouter> when you want to manually control the history
   render(
     <MemoryRouter initialEntries={[route]}>
       <App />
     </MemoryRouter>,
-  )
+  );
 
   // verify location display is rendered
-  expect(screen.getByText(/Home/i)).toBeInTheDocument()
+  expect(screen.getByText(/Home/i)).toBeInTheDocument();
 })
